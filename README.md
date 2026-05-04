@@ -1,7 +1,3 @@
-Here’s a clean, professional **README.md** you can directly use for your GitHub repository:
-
----
-
 # 🎬 Sentiment Analysis on IMDb Reviews
 
 This project performs **sentiment analysis** on movie reviews using two popular Natural Language Processing (NLP) techniques: **VADER** and **TextBlob**. It includes data preprocessing, visualization, model evaluation, and custom text testing.
@@ -176,9 +172,3 @@ Feel free to fork this repository and submit pull requests for improvements!
 This project is open-source and available under the MIT License.
 
 ---
-
-If you want, I can also:
-
-* Make a **short README (1-page version)**
-* Add **badges (GitHub style)**
-* Or customize it for your **college/project submission**
