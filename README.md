@@ -1,147 +1,184 @@
-# 🎬 IMDb Movie Review Sentiment Analyzer
-
-A Python-based NLP project that performs sentiment analysis on IMDb movie reviews using two rule-based approaches — **VADER** and **TextBlob** — and compares their performance against labeled ground truth.
+Here’s a clean, professional **README.md** you can directly use for your GitHub repository:
 
 ---
 
-## 📌 Overview
+# 🎬 Sentiment Analysis on IMDb Reviews
 
-This project analyzes movie reviews from the IMDb dataset to classify sentiments as **positive**, **negative**, or **neutral**. It uses two lexicon-based NLP tools and evaluates their accuracy side by side with visualizations.
-
----
-
-## 🧠 Techniques Used
-
-| Tool | Approach | Strength |
-|------|----------|----------|
-| **VADER** | Rule-based + lexicon | Great for social/informal text |
-| **TextBlob** | Pattern-based NLP | Simple polarity scoring |
+This project performs **sentiment analysis** on movie reviews using two popular Natural Language Processing (NLP) techniques: **VADER** and **TextBlob**. It includes data preprocessing, visualization, model evaluation, and custom text testing.
 
 ---
 
-## 📁 Project Structure
+## 📌 Project Overview
+
+The goal of this project is to:
+
+* Analyze movie reviews from a labeled dataset
+* Compare sentiment predictions using different NLP tools
+* Visualize sentiment distribution
+* Evaluate model performance
+* Allow users to test custom input text
+
+---
+
+## 📂 Dataset
+
+* Dataset used: `imdb_labelled.csv`
+* Contains:
+
+  * `review` → Movie review text
+  * `sentiment` / `label` → Actual sentiment (positive/negative)
+
+---
+
+## ⚙️ Technologies Used
+
+* Python 🐍
+* Pandas & NumPy (Data handling)
+* NLTK (VADER Sentiment Analysis)
+* TextBlob (Polarity-based sentiment)
+* Matplotlib (Visualization)
+* Scikit-learn (Evaluation metrics)
+
+---
+
+## 🔄 Workflow
+
+### 1. Data Loading & Exploration
+
+* Load dataset using Pandas
+* Check shape, missing values, and label distribution
+
+### 2. Text Preprocessing
+
+* Convert text to lowercase
+* Remove HTML tags
+* Remove punctuation and special characters
+* Strip extra spaces
+
+### 3. Sentiment Analysis
+
+#### 🔹 VADER
+
+* Uses compound score:
+
+  * ≥ 0.05 → Positive
+  * ≤ -0.05 → Negative
+  * Otherwise → Neutral
+
+#### 🔹 TextBlob
+
+* Uses polarity:
+
+  * > 0 → Positive
+  * < 0 → Negative
+  * = 0 → Neutral
+
+---
+
+## 📊 Visualizations
+
+### Bar Charts
+
+* Actual sentiment distribution
+* VADER predictions
+* TextBlob predictions
+
+### Pie Charts
+
+* Percentage breakdown of predicted sentiments
+
+📁 Output files:
+
+* `sentiment_chart.png`
+* `pie_chart.png`
+
+---
+
+## 📈 Model Evaluation
+
+* Accuracy calculated using `accuracy_score`
+* Classification report for detailed metrics
+
+Example:
 
 ```
-sentiment-analysis/
-│
-├── imdb_labelled.csv         # Dataset: reviews with sentiment labels
-├── sentiment_analysis.py     # Main script
-├── sentiment_chart.png       # Bar chart: actual vs predicted
-├── pie_chart.png             # Pie charts: VADER & TextBlob breakdown
-└── README.md
+VADER Accuracy:    XX.XX%
+TextBlob Accuracy: XX.XX%
 ```
 
 ---
 
-## ⚙️ Setup & Installation
+## 🧪 Custom Text Analysis
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/your-username/imdb-sentiment-analysis.git
-cd imdb-sentiment-analysis
-```
+You can test your own text using:
 
-### 2. Install dependencies
-```bash
-pip install pandas numpy nltk matplotlib textblob scikit-learn
-```
-
-### 3. Download NLTK data
 ```python
-import nltk
-nltk.download('vader_lexicon')
-nltk.download('stopwords')
-nltk.download('punkt')
+analyze_my_text("Your sentence here")
 ```
+
+Output includes:
+
+* Predicted sentiment
+* VADER compound score
+* TextBlob polarity score
 
 ---
 
-## 🚀 Usage
+## 🚀 How to Run
 
-Run the main script:
+1. Clone the repository:
+
 ```bash
-python sentiment_analysis.py
+git clone https://github.com/your-username/sentiment-analysis-imdb.git
+cd sentiment-analysis-imdb
 ```
 
-This will:
-1. Load and explore the IMDb dataset
-2. Clean and preprocess review text
-3. Predict sentiments using VADER and TextBlob
-4. Generate bar and pie chart visualizations
-5. Print accuracy scores and classification reports
-6. Analyze a custom sample review
+2. Install dependencies:
 
-### Analyze your own text
-
-You can call `analyze_my_text()` directly in the script:
-```python
-analyze_my_text("This movie was absolutely fantastic!")
+```bash
+pip install pandas numpy nltk textblob matplotlib scikit-learn
 ```
 
-**Sample Output:**
-```
-Your Text: This movie was absolutely fantastic!
+3. Run the script:
 
-VADER Result:    POSITIVE
-  Compound Score: 0.6588
-
-TextBlob Result: POSITIVE
-  Polarity Score: 1.000
+```bash
+python your_script_name.py
 ```
 
 ---
 
-## 📊 Results
+## 📌 Key Insights
 
-Both models are evaluated on binary classification (positive vs. negative):
-
-| Model | Accuracy |
-|-------|----------|
-| VADER | ~69% |
-| TextBlob | ~65% |
-
-> Results may vary slightly depending on the dataset version used.
-
-### Visualizations
-
-- **Bar Chart** — Compares actual vs. predicted sentiment distributions
-- **Pie Chart** — Shows percentage breakdown for each model's predictions
+* VADER performs well on short, informal text
+* TextBlob provides simple polarity-based classification
+* Both models may struggle with sarcasm and context
+* Visualization helps in comparing model predictions effectively
 
 ---
 
-## 📦 Dataset
+## 📚 Future Improvements
 
-Uses the [IMDb Labelled Sentences dataset](https://archive.ics.uci.edu/ml/datasets/Sentiment+Labelled+Sentences) from the UCI ML Repository.
-
-The CSV contains:
-- `review` — raw movie review text
-- `sentiment` — ground truth label (`positive` / `negative`)
-- `label` — binary encoding (`1` = positive, `0` = negative)
-
----
-
-## 🛠️ Dependencies
-
-- `pandas` — data handling
-- `numpy` — numerical operations
-- `nltk` — VADER sentiment analyzer
-- `textblob` — TextBlob sentiment analyzer
-- `matplotlib` — plotting charts
-- `scikit-learn` — accuracy scoring & classification report
-
----
-
-## 📌 Future Improvements
-
-- [ ] Add ML-based models (Logistic Regression, Naive Bayes, BERT)
-- [ ] Build an interactive web UI with Streamlit
-- [ ] Expand to multi-class sentiment (very positive, mixed, etc.)
-- [ ] Add word cloud visualizations for positive/negative reviews
+* Use machine learning models (Logistic Regression, SVM, etc.)
+* Apply deep learning (LSTM, BERT)
+* Improve preprocessing (stopwords, stemming, lemmatization)
+* Handle sarcasm and context-aware sentiment
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
+Feel free to fork this repository and submit pull requests for improvements!
 
 ---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+If you want, I can also:
+
+* Make a **short README (1-page version)**
+* Add **badges (GitHub style)**
+* Or customize it for your **college/project submission**
