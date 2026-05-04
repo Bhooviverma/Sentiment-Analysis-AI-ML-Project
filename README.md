@@ -1,93 +1,52 @@
-# 🎭 Sentiment Analyzer
+# 🎬 IMDb Movie Review Sentiment Analyzer
 
-A dual-engine sentiment analysis tool using **VADER** and **TextBlob** — available as both a desktop GUI application and a batch analysis script for IMDB movie reviews.
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [How It Works](#how-it-works)
-- [Output](#output)
-- [Dependencies](#dependencies)
-- [License](#license)
+A Python-based NLP project that performs sentiment analysis on IMDb movie reviews using two rule-based approaches — **VADER** and **TextBlob** — and compares their performance against labeled ground truth.
 
 ---
 
-## Overview
+## 📌 Overview
 
-This project performs sentiment analysis using two popular NLP libraries:
-
-- **VADER** *(Valence Aware Dictionary and sEntiment Reasoner)* — rule-based, optimized for social media and short texts
-- **TextBlob** — lexicon-based, great for general-purpose polarity detection
-
-It ships with two components:
-1. `app.py` — A sleek **Tkinter GUI** for real-time analysis of custom text
-2. `analysis.py` — A **batch analysis script** that evaluates the IMDB dataset and generates accuracy metrics + charts
+This project analyzes movie reviews from the IMDb dataset to classify sentiments as **positive**, **negative**, or **neutral**. It uses two lexicon-based NLP tools and evaluates their accuracy side by side with visualizations.
 
 ---
 
-## ✨ Features
+## 🧠 Techniques Used
 
-- ⚡ Real-time sentiment prediction (Positive / Negative / Neutral)
-- 🖥️ Dark-themed desktop GUI with side-by-side VADER and TextBlob results
-- 📊 Batch analysis with bar charts and pie charts
-- 🧹 Automatic text cleaning (lowercasing, HTML stripping, punctuation removal)
-- 🎯 Accuracy evaluation against labeled IMDB data
-- 🔄 Threaded analysis to keep the UI responsive
+| Tool | Approach | Strength |
+|------|----------|----------|
+| **VADER** | Rule-based + lexicon | Great for social/informal text |
+| **TextBlob** | Pattern-based NLP | Simple polarity scoring |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-sentiment-analyzer/
+sentiment-analysis/
 │
-├── app.py               # Tkinter GUI application
-├── analysis.py          # Batch analysis script for IMDB dataset
-├── imdb_labelled.csv    # Labeled IMDB movie reviews dataset
-│
-├── sentiment_chart.png  # Generated bar chart (after running analysis.py)
-├── pie_chart.png        # Generated pie chart (after running analysis.py)
-│
+├── imdb_labelled.csv         # Dataset: reviews with sentiment labels
+├── sentiment_analysis.py     # Main script
+├── sentiment_chart.png       # Bar chart: actual vs predicted
+├── pie_chart.png             # Pie charts: VADER & TextBlob breakdown
 └── README.md
 ```
 
 ---
 
-## 🚀 Installation
+## ⚙️ Setup & Installation
 
 ### 1. Clone the repository
-
 ```bash
-git clone https://github.com/your-username/sentiment-analyzer.git
-cd sentiment-analyzer
+git clone https://github.com/your-username/imdb-sentiment-analysis.git
+cd imdb-sentiment-analysis
 ```
 
-### 2. Create a virtual environment (recommended)
-
+### 2. Install dependencies
 ```bash
-python -m venv venv
-source venv/bin/activate        # On Windows: venv\Scripts\activate
+pip install pandas numpy nltk matplotlib textblob scikit-learn
 ```
 
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-> **Note:** If you don't have a `requirements.txt`, install manually:
-> ```bash
-> pip install nltk textblob pandas numpy matplotlib scikit-learn
-> ```
-
-### 4. Download NLTK data (auto-handled, but can be done manually)
-
+### 3. Download NLTK data
 ```python
 import nltk
 nltk.download('vader_lexicon')
@@ -97,102 +56,92 @@ nltk.download('punkt')
 
 ---
 
-## 🖥️ Usage
+## 🚀 Usage
 
-### Run the GUI App
-
+Run the main script:
 ```bash
-python app.py
+python sentiment_analysis.py
 ```
 
-- Type or paste text in the **Quick Input** field or the multi-line **Review** box
-- Click **Analyse Sentiment**
-- View VADER and TextBlob results side by side
-- Use **Clear** to reset
+This will:
+1. Load and explore the IMDb dataset
+2. Clean and preprocess review text
+3. Predict sentiments using VADER and TextBlob
+4. Generate bar and pie chart visualizations
+5. Print accuracy scores and classification reports
+6. Analyze a custom sample review
 
-### Run Batch Analysis
+### Analyze your own text
 
-```bash
-python analysis.py
-```
-
-Requires `imdb_labelled.csv` in the same directory. This will:
-- Clean and analyze all reviews
-- Print accuracy scores and classification reports to the terminal
-- Save `sentiment_chart.png` and `pie_chart.png`
-
----
-
-## ⚙️ How It Works
-
-### Text Cleaning
-
+You can call `analyze_my_text()` directly in the script:
 ```python
-def clean_text(text):
-    text = text.lower()
-    text = re.sub(r'<.*?>', '', text)      # Remove HTML tags
-    text = re.sub(r'[^a-zA-Z\s]', '', text)  # Remove punctuation/numbers
-    return text.strip()
+analyze_my_text("This movie was absolutely fantastic!")
 ```
 
-### VADER Scoring
-
-Returns a **compound score** from `-1.0` (most negative) to `+1.0` (most positive):
-
-| Compound Score | Sentiment |
-|----------------|-----------|
-| ≥ 0.05         | Positive  |
-| ≤ -0.05        | Negative  |
-| Between        | Neutral   |
-
-### TextBlob Scoring
-
-Returns a **polarity score** from `-1.0` to `1.0`:
-
-| Polarity | Sentiment |
-|----------|-----------|
-| > 0      | Positive  |
-| < 0      | Negative  |
-| = 0      | Neutral   |
-
----
-
-## 📊 Output
-
-After running `analysis.py`, you'll see:
-
+**Sample Output:**
 ```
-✅ VADER Accuracy:    69.xx%
-✅ TextBlob Accuracy: 67.xx%
+Your Text: This movie was absolutely fantastic!
+
+VADER Result:    POSITIVE
+  Compound Score: 0.6588
+
+TextBlob Result: POSITIVE
+  Polarity Score: 1.000
 ```
 
-Along with a full classification report and two saved charts:
+---
 
-| Chart | Description |
-|-------|-------------|
-| `sentiment_chart.png` | Bar chart comparing actual vs. predicted distributions |
-| `pie_chart.png`       | Pie chart of VADER and TextBlob sentiment breakdowns |
+## 📊 Results
+
+Both models are evaluated on binary classification (positive vs. negative):
+
+| Model | Accuracy |
+|-------|----------|
+| VADER | ~69% |
+| TextBlob | ~65% |
+
+> Results may vary slightly depending on the dataset version used.
+
+### Visualizations
+
+- **Bar Chart** — Compares actual vs. predicted sentiment distributions
+- **Pie Chart** — Shows percentage breakdown for each model's predictions
 
 ---
 
-## 📦 Dependencies
+## 📦 Dataset
 
-| Library       | Purpose                              |
-|---------------|--------------------------------------|
-| `nltk`        | VADER sentiment analyzer             |
-| `textblob`    | TextBlob sentiment analyzer          |
-| `pandas`      | Data loading and manipulation        |
-| `numpy`       | Numerical operations                 |
-| `matplotlib`  | Chart generation                     |
-| `scikit-learn`| Accuracy and classification metrics  |
-| `tkinter`     | GUI framework (built into Python)    |
+Uses the [IMDb Labelled Sentences dataset](https://archive.ics.uci.edu/ml/datasets/Sentiment+Labelled+Sentences) from the UCI ML Repository.
+
+The CSV contains:
+- `review` — raw movie review text
+- `sentiment` — ground truth label (`positive` / `negative`)
+- `label` — binary encoding (`1` = positive, `0` = negative)
 
 ---
 
-## 📄 License
+## 🛠️ Dependencies
 
-This project is licensed under the [MIT License](LICENSE).
+- `pandas` — data handling
+- `numpy` — numerical operations
+- `nltk` — VADER sentiment analyzer
+- `textblob` — TextBlob sentiment analyzer
+- `matplotlib` — plotting charts
+- `scikit-learn` — accuracy scoring & classification report
 
 ---
 
-> Built with ❤️ using Python, NLTK, and TextBlob
+## 📌 Future Improvements
+
+- [ ] Add ML-based models (Logistic Regression, Naive Bayes, BERT)
+- [ ] Build an interactive web UI with Streamlit
+- [ ] Expand to multi-class sentiment (very positive, mixed, etc.)
+- [ ] Add word cloud visualizations for positive/negative reviews
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
+
+---
