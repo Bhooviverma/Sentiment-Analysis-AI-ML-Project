@@ -71,24 +71,7 @@ The goal of this project is to:
 
 ---
 
-## 📊 Visualizations
-
-### Bar Charts
-
-* Actual sentiment distribution
-* VADER predictions
-* TextBlob predictions
-
-### Pie Charts
-
-* Percentage breakdown of predicted sentiments
-
-📁 Output files:
-
-* `sentiment_chart.png`
-* `pie_chart.png`
-
----
+-
 
 ## 📈 Model Evaluation
 
@@ -120,55 +103,11 @@ Output includes:
 
 ---
 
-## 🚀 How to Run
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/sentiment-analysis-imdb.git
-cd sentiment-analysis-imdb
-```
-
-2. Install dependencies:
-
-```bash
-pip install pandas numpy nltk textblob matplotlib scikit-learn
-```
-
-3. Run the script:
-
-```bash
-python your_script_name.py
-```
-
----
-
 ## 📌 Key Insights
 
 * VADER performs well on short, informal text
 * TextBlob provides simple polarity-based classification
 * Both models may struggle with sarcasm and context
 * Visualization helps in comparing model predictions effectively
-
----
-
-## 📚 Future Improvements
-
-* Use machine learning models (Logistic Regression, SVM, etc.)
-* Apply deep learning (LSTM, BERT)
-* Improve preprocessing (stopwords, stemming, lemmatization)
-* Handle sarcasm and context-aware sentiment
-
----
-
-## 🤝 Contributing
-
-Feel free to fork this repository and submit pull requests for improvements!
-
----
-
-## 📄 License
-
-This project is open-source and available under the MIT License.
 
 ---
