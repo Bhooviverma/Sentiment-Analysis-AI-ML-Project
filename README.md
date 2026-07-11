@@ -81,8 +81,8 @@ The goal of this project is to:
 Example:
 
 ```
-VADER Accuracy:    XX.XX%
-TextBlob Accuracy: XX.XX%
+VADER Accuracy:    77.40%
+TextBlob Accuracy: 71.20%
 ```
 
 ---
